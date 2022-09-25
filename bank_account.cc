@@ -37,7 +37,9 @@ int main(){
     int inc_pin_atmpt = 0;
     int menu_opt;
  
-    do{
+    do
+    {
+             
         //DISPLAYS MENU
         cout << "-------------" << endl;
         cout << "1: Balance." << endl;
@@ -50,6 +52,7 @@ int main(){
 
         switch(menu_opt)
         {
+                          
             case 1:
             
                 //OUTPUT BALANCE
@@ -67,6 +70,7 @@ int main(){
 
                 }else
                     {
+                         
                         //ENTER PIN TO MAKE A DEPOSIT
                         cout << "Please enter your pin to make a deposit: ";
                         cin >> user_pin;
@@ -107,12 +111,14 @@ int main(){
 
                 }else
                     {
+                         
                         cout << "Please enter your pin to make a withdrawal: ";
                         cin >> user_pin;
 
                         //CHECK VALIDITY OF USER PIN
                         if (user_pin != PIN)
                         {
+                                 
                             inc_pin_atmpt += 1;
                             cout << "Incorrect PIN. #" << inc_pin_atmpt << endl;
                             break;
@@ -154,7 +160,8 @@ int main(){
                 //COULDN'T READ INPUT OF USER (NOT A SELECTION FOR THE SWITCH CASES)
                 cout << "We couldn't quite get your input. \n";
         }
-        }while(true);
+             
+    }while(true);
         
         return 0;
 }
