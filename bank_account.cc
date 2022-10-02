@@ -6,7 +6,7 @@ Purpose: Create a C++ program to practice implementing flow control using if-els
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 SET INITIAL VARIABLE OF BALANCE = $2300
 
-SET A PIN NUMBER (3579) WHERE IF ENTERED INCORRECTLY 3 TIMES WILL KILL THE PROGRAM
+SET A PIN NUMBER (3579) WHERE IF ENTERED INCORRECTLY 3 TIMES WILL END THE PROGRAM
 
 CREATE A SWITCH MENU
 
@@ -22,146 +22,133 @@ CREATE A SWITCH MENU
 */
 #include <iostream>
 #include <iomanip>
+#include <string>
 
-using namespace std;
+using std::cout;
+using std::cin;
+using std::endl;
+using std::setprecision;
+using std::ios;
+using std::string;
 
 int main(){
     cout.setf(ios::fixed);
  
-    //VARIABLES
+    //VARIABLES.
     double bal = 2300;
-    const int PIN = 3579;
     double dep_amnt;
     double wtd_amnt;
     int user_pin;
     int inc_pin_atmpt = 0;
     int menu_opt;
+    const int PIN = 3579;
+    string user = "Zachary";
+    cout << "Hello " << user << ", at All-American banking, we are extremely happy that you have chose our company!" << endl;
  
     do
     {
-             
-        //DISPLAYS MENU
-        cout << "-------------" << endl;
-        cout << "1: Balance." << endl;
-        cout << "2: Deposit." << endl;
-        cout << "3: Withdraw: " << endl;
-        cout << "4: QUIT. " << endl;
- 
-        //MENU OPTION INPUT FROM USER
-        cin >> menu_opt;
-
-        switch(menu_opt)
+        if (inc_pin_atmpt == 3)
         {
-                          
-            case 1:
-            
-                //OUTPUT BALANCE
-                cout << "\nYour balance is: $" << setprecision(2) << bal << endl;
-                break;
-                
-            case 2:
-            
-                if (inc_pin_atmpt == 3)
-                {
-
-                    //ERROR - PIN ENTRY FAILED ATTEMPTS == 3
-                    cout << "You have entered the incorrect PIN too many times. \n" << endl;
-                    exit(true);
-
-                }else
-                    {
-                         
-                        //ENTER PIN TO MAKE A DEPOSIT
-                        cout << "Please enter your pin to make a deposit: ";
-                        cin >> user_pin;
-
-                        //CHECK VALIDITY OF USER PIN
-                        if (user_pin != PIN)
-                        {
-
-                            //ERROR - INCORRECT PIN
-                            inc_pin_atmpt += 1;
-                            cout << "Incorrect PIN. #" << inc_pin_atmpt << endl;
-                            break;
-
-                        }else
-                            {
-
-                                //REQUEST DEPOSIT AMOUNT
-                                cout << "How much would you like to deposit? ";
-                                cin >> dep_amnt;
-
-                                //UPDATE BALANCE AMOUNT
-                                bal = bal + dep_amnt;
-                                
-                                //OUTPUT NEW BALANCE
-                                cout << "\nYour new balance is: $" << setprecision(2) << bal << endl;
-                                break; 
-
-                            }
-                    }
-            case 3:
-            
-                //ERROR - PIN ENTRY FAILED ATTEMPTS == 3
-                if (inc_pin_atmpt == 3)
-                {
-
-                    cout << "You have entered the incorrect PIN too many times. \n" << endl;
-                    exit(true);
-
-                }else
-                    {
-                         
-                        cout << "Please enter your pin to make a withdrawal: ";
-                        cin >> user_pin;
-
-                        //CHECK VALIDITY OF USER PIN
-                        if (user_pin != PIN)
-                        {
-                                 
-                            inc_pin_atmpt += 1;
-                            cout << "Incorrect PIN. #" << inc_pin_atmpt << endl;
-                            break;
-
-                        }else
-                            {
-
-                                //USER ENTERS WITHDRAW AMOUNT
-                                cout << "\nHow much would you like to withdraw? ($" << setprecision(2) << bal << ")" << endl;
-                                cin >> wtd_amnt;
-                                                    
-                                //ERROR ATTEMPTED WITHDRAWAL AMOUNT GREATER THAN BALANCE OF ACCOUNT
-                                if (wtd_amnt > bal) 
-                                {
-
-                                    cout << "\nYou do not have the funds to make this transaction. ";
-                                    cout << "\nYour balance is: $" << setprecision(2) << bal << endl;\
-                                    break;
-
-                                }else   
-                                    {
-
-                                        //WITHDRAWS AMOUNT USER DECLARED AS THE AMOUNT THEY WANT TO TAKE
-                                        bal = bal - wtd_amnt;
-                                        cout << "\nYour new balance is: $" << setprecision(2) << bal << endl;
-                                        break;
-
-                                    }
-                            }
-                    }
-            case 4:
-
-                //EXITS ACCOUNT && KILLS PROGRAM
-                cout << "\nThanks for updating your account! Goodbye.\n" << endl;            
-                exit(true); 
-
-            default: 
-
-                //COULDN'T READ INPUT OF USER (NOT A SELECTION FOR THE SWITCH CASES)
-                cout << "We couldn't quite get your input. \n";
+            //ERROR - PIN ENTRY FAILED ATTEMPTS == 3.
+            cout << "\n--------------------------------------------------" << endl;
+            cout << "You have entered the INCORRECT pin too many times. \n" << endl;
+            exit(true);
         }
-             
-    }while(true);
-        
-        return 0;
+        else
+        {
+            //DISPLAYS MENU.
+            cout << "-------------" << endl;
+            cout << "1: Balance." << endl;
+            cout << "2: Deposit." << endl;
+            cout << "3: Withdraw: " << endl;
+            cout << "4: QUIT. " << endl;
+    
+            //MENU OPTION INPUT FROM USER.
+            cin >> menu_opt;
+
+            switch(menu_opt)
+            {
+                case 1:
+                
+                    //OUTPUT BALANCE.
+                    cout << "\nYour current balance is: $" << setprecision(2) << bal << endl;
+                    break;
+                    
+                case 2:
+                    //ENTER PIN TO MAKE A DEPOSIT.
+                    cout << "Please enter your pin to make a deposit to your account: ";
+                    cin >> user_pin;
+
+                    //CHECK VALIDITY OF USER PIN.
+                    if (user_pin != PIN)
+                    {
+                        //ERROR - INCORRECT PIN.
+                        inc_pin_atmpt++;
+                        cout << "\nIncorrect PIN. #" << inc_pin_atmpt << endl;
+                        if (inc_pin_atmpt != 3)
+                        {
+                            cout << "Please be courteous with how many incorrect PIN entries you have. " << endl;
+                        }
+                        break;
+                    }else
+                    {
+                        //REQUEST DEPOSIT AMOUNT.
+                        cout << "How much would you like to deposit to your account? ($" << setprecision(2) << bal << "): ";
+                        cin >> dep_amnt;
+                        //UPDATE BALANCE AMOUNT.
+                        bal += dep_amnt;
+                        
+                        //OUTPUT NEW BALANCE.
+                        cout << "\nYour NEW balance is: $" << setprecision(2) << bal << endl;
+                        break;
+                    }
+                case 3:
+                
+                    cout << "Please enter your pin to make a withdrawal from your account: ";
+                    cin >> user_pin;
+                    //CHECK VALIDITY OF USER PIN
+                    if (user_pin != PIN)
+                    {
+                        //ERROR - INCORRECT PIN.
+                        inc_pin_atmpt++;
+                        cout << "\nIncorrect PIN. #" << inc_pin_atmpt << endl;
+                        if (inc_pin_atmpt != 3)
+                        {
+                            cout << "Please be courteous with how many incorrect PIN entries you have. " << endl;
+                        }
+                        
+                        break;
+                    }else
+                    {
+                        //USER ENTERS WITHDRAW AMOUNT
+                        cout << "\nHow much would you like to withdraw from your account? ($" << setprecision(2) << bal << ")" << endl;
+                        cin >> wtd_amnt;
+                                            
+                        //ERROR ATTEMPTED WITHDRAWAL AMOUNT GREATER THAN BALANCE OF ACCOUNT
+                        if (wtd_amnt > bal)
+                        {
+                            cout << "\nYou do not have the funds to make this transaction. ";
+                            cout << "\nYour NEW balance is: $" << setprecision(2) << bal << endl;
+                            break;
+                        }else 
+                        {  
+                            //WITHDRAWS AMOUNT USER DECLARED AS THE AMOUNT THEY WANT TO TAKE
+                            bal -= wtd_amnt;
+                            cout << "\nYour NEW balance is: $" << setprecision(2) << bal << endl;
+                            break;
+                        }
+                    }
+                case 4:
+                    //EXITS ACCOUNT && ENDS PROGRAM
+                    cout << "\nThank you for updating your account! Goodbye.\n" << endl;            
+                    exit(true); 
+
+                default: 
+
+                    //COULDN'T READ INPUT OF USER (NOT A SELECTION FOR THE SWITCH CASES)
+                    cout << "Sorry, we couldn't quite read the given input, please try again. \n";
+            }
+        }
+    }while(true);    
+    return 0;
 }
