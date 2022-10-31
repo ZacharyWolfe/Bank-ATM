@@ -24,12 +24,7 @@ CREATE A SWITCH MENU
 #include <iomanip>
 #include <string>
 
-using std::cout;
-using std::cin;
-using std::endl;
-using std::setprecision;
-using std::ios;
-using std::string;
+using namespace std;
 
 int main(){
     cout.setf(ios::fixed);
